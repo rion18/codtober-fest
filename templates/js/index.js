@@ -8,7 +8,7 @@
  * ****************************
  */
 function postOrder(order) {
-    fetch('http://localhost:8080/order', {
+    fetch('http://localhost:8080/orders', {
         method: 'POST',
         body: JSON.stringify(order),
         headers: {

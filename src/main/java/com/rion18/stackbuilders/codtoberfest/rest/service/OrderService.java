@@ -9,10 +9,10 @@ import com.rion18.stackbuilders.codtoberfest.persistence.entity.IngredientDetail
 import com.rion18.stackbuilders.codtoberfest.persistence.entity.OrderDetail;
 import com.rion18.stackbuilders.codtoberfest.persistence.entity.OrderHeader;
 import com.rion18.stackbuilders.codtoberfest.persistence.entity.Size;
-import com.rion18.stackbuilders.codtoberfest.rest.representation.CreateOrderRequest;
+import com.rion18.stackbuilders.codtoberfest.rest.representation.OrderHeaderRepresentation;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.persistence.criteria.CriteriaBuilder.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +30,7 @@ public class OrderService {
     this.orderHeaderDao = orderHeaderDao;
   }
 
-  public OrderHeader createOrder(CreateOrderRequest createOrderRequest) {
+  public OrderHeader createOrder(OrderHeaderRepresentation createOrderRequest) {
     Size size = sizeDao.findByName(createOrderRequest.getSize());
 
     if (size == null) {
@@ -58,6 +58,25 @@ public class OrderService {
         .collect(Collectors.toList()));
 
     return orderHeaderDao.save(orderHeader);
+  }
+
+  public List<OrderHeader> findAllOrders() {
+    return orderHeaderDao.findAll();
+  }
+
+  public OrderHeader findOrderById(long id) {
+    return orderHeaderDao.findById(id);
+  }
+
+  public BigDecimal findTotal(OrderHeader orderHeader) {
+    BigDecimal total = BigDecimal.ZERO;
+    for (OrderDetail orderDetail : orderHeader.getOrderDetails()) {
+      total = total.add(orderDetail.getSizePrice());
+      for (IngredientDetail ingredientDetail : orderDetail.getIngredientDetails()) {
+        total = total.add(ingredientDetail.getPrice());
+      }
+    }
+    return total;
   }
 
 }
