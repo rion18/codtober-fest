@@ -1,12 +1,12 @@
 /**
  * Fetch the orders and append to the table
- * 
+ *
  * ****************************
- * Please change 'json/orders.json' 
+ * Please change 'json/orders.json'
  * with your service endpoint below
  * ****************************
  */
-fetch('json/orders.json')
+fetch('http://localhost:8080/orders')
     .then(response => response.json())
     .then(orders => {
         let rows = orders.map(element => createOrderTemplate(element));
@@ -16,7 +16,7 @@ fetch('json/orders.json')
 
 /**
  * Find the template tag and populate it with the data
- * @param order 
+ * @param order
  */
 function createOrderTemplate(order) {
     let template = $("#order-item-template")[0].innerHTML;

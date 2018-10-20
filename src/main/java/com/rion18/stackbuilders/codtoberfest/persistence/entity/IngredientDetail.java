@@ -7,9 +7,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
-public class IngredientDetail {
+@Table(name = "ingredient_detail")
+public class IngredientDetail implements EntityBase {
 
   @Id
   @GeneratedValue
@@ -24,6 +26,16 @@ public class IngredientDetail {
   @ManyToOne(optional = false)
   @JoinColumn(name = "ORDER_DETAIL_ID", referencedColumnName = "ID")
   private OrderDetail orderDetail;
+
+  public IngredientDetail() {
+
+  }
+
+  public IngredientDetail(OrderDetail orderDetail, Ingredient ingredient) {
+    this.orderDetail = orderDetail;
+    this.name = ingredient.getName();
+    this.price = ingredient.getPrice();
+  }
 
   public Long getId() {
     return id;

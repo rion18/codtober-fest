@@ -5,9 +5,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-public class Size {
+@Table(name = "size")
+public class Size implements EntityBase {
 
   @Id
   @GeneratedValue
