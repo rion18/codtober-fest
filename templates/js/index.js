@@ -1,14 +1,14 @@
 /**
  * POST the order on /pizza
- * @param order 
- * 
+ * @param order
+ *
  * ****************************
  * Please change '/pizza' with
  * your service endpoint below
  * ****************************
  */
 function postOrder(order) {
-    fetch('/pizza', {
+    fetch('http://localhost:8080/order', {
         method: 'POST',
         body: JSON.stringify(order),
         headers: {

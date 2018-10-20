@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "size")
-public class Size {
+public class Size implements EntityBase {
 
   @Id
   @GeneratedValue

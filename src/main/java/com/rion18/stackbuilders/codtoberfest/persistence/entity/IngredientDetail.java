@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "ingredient_detail")
-public class IngredientDetail {
+public class IngredientDetail implements EntityBase {
 
   @Id
   @GeneratedValue

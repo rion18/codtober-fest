@@ -1,48 +1,31 @@
 package com.rion18.stackbuilders.codtoberfest.rest.controller;
 
-import com.rion18.stackbuilders.codtoberfest.persistence.entity.Ingredient;
-import com.rion18.stackbuilders.codtoberfest.persistence.repository.IngredientRepository;
+import com.rion18.stackbuilders.codtoberfest.persistence.entity.OrderHeader;
 import com.rion18.stackbuilders.codtoberfest.rest.representation.CreateOrderRequest;
-import java.math.BigDecimal;
+import com.rion18.stackbuilders.codtoberfest.rest.representation.CreateOrderResponse;
+import com.rion18.stackbuilders.codtoberfest.rest.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController("/order")
 public class OrderController {
 
+  private final OrderService orderService;
+
   @Autowired
-  public IngredientRepository ingredientRepository;
+  public OrderController(OrderService orderService) {
+    this.orderService = orderService;
+  }
 
-//  {
-//    "name": "Sebastian",
-//      "address": "10 de Agosto y Rumipamba",
-//      "phone": "0969074930",
-//      "size": "Medium",
-//      "ingredients": [
-//    "Extra cheese",
-//        "Pineapple",
-//        "Onions"
-//    ]
-//  }
-
+  // TODO Obviously, client should send ids
   @PostMapping
-  public String hello(CreateOrderRequest createOrderRequest) {
-    Ingredient ingredient = new Ingredient();
-    ingredient.setName("HOLA");
-    ingredient.setPrice(new BigDecimal(1));
-    ingredientRepository.save(ingredient);
-    Iterable<Ingredient> ingredients = ingredientRepository.findAll();
-    StringBuilder total = new StringBuilder();
-    ingredients.forEach(ingredientIterable ->
-        total.append(ingredientIterable.getId())
-            .append(" ")
-            .append(ingredientIterable.getName())
-            .append(" ")
-            .append(ingredientIterable.getPrice())
-    );
-    return total.toString();
+  @ResponseBody
+  public CreateOrderResponse hello(@RequestBody CreateOrderRequest createOrderRequest) {
+    OrderHeader orderHeader = orderService.createOrder(createOrderRequest);
+    return new CreateOrderResponse(orderHeader);
   }
 
 }

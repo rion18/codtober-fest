@@ -1,6 +1,8 @@
 package com.rion18.stackbuilders.codtoberfest.persistence.entity;
 
+import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "order_header")
-public class OrderHeader {
+public class OrderHeader implements EntityBase {
 
   @Id
   @GeneratedValue
@@ -26,7 +28,7 @@ public class OrderHeader {
   @Column(name = "phone", nullable = false, length = 32)
   private String phone;
 
-  @OneToMany(mappedBy = "orderHeader", fetch = FetchType.EAGER)
+  @OneToMany(mappedBy = "orderHeader", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   private List<OrderDetail> orderDetails;
 
   public Long getId() {
@@ -67,5 +69,12 @@ public class OrderHeader {
 
   public void setOrderDetails(List<OrderDetail> orderDetails) {
     this.orderDetails = orderDetails;
+  }
+
+  public void addOrderDetail(OrderDetail orderDetail) {
+    if (orderDetails == null) {
+      orderDetails = new ArrayList<>();
+    }
+    orderDetails.add(orderDetail);
   }
 }

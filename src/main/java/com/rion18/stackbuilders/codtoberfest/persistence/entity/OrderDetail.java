@@ -2,6 +2,7 @@ package com.rion18.stackbuilders.codtoberfest.persistence.entity;
 
 import java.math.BigDecimal;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,7 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "order_detail")
-public class OrderDetail {
+public class OrderDetail implements EntityBase {
 
   @Id
   @GeneratedValue
@@ -33,7 +34,7 @@ public class OrderDetail {
   @JoinColumn(name = "ORDER_HEADER_ID", referencedColumnName = "ID")
   private OrderHeader orderHeader;
 
-  @OneToMany(mappedBy = "orderDetail", fetch = FetchType.EAGER)
+  @OneToMany(mappedBy = "orderDetail", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   private List<IngredientDetail> ingredientDetails;
 
   public Long getId() {
