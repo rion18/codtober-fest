@@ -7,8 +7,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "order_header")
 public class OrderHeader {
 
   @Id
@@ -18,10 +20,10 @@ public class OrderHeader {
   @Column(name = "fullName", nullable = false, length = 128)
   private String fullName;
 
-  @Column(name = "fullName", nullable = false, length = 128)
+  @Column(name = "address", nullable = false, length = 128)
   private String address;
 
-  @Column(name = "fullName", nullable = false, length = 32)
+  @Column(name = "phone", nullable = false, length = 32)
   private String phone;
 
   @OneToMany(mappedBy = "orderHeader", fetch = FetchType.EAGER)
