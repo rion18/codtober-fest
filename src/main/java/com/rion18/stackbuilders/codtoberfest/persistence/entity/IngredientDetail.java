@@ -27,6 +27,16 @@ public class IngredientDetail {
   @JoinColumn(name = "ORDER_DETAIL_ID", referencedColumnName = "ID")
   private OrderDetail orderDetail;
 
+  public IngredientDetail() {
+
+  }
+
+  public IngredientDetail(OrderDetail orderDetail, Ingredient ingredient) {
+    this.orderDetail = orderDetail;
+    this.name = ingredient.getName();
+    this.price = ingredient.getPrice();
+  }
+
   public Long getId() {
     return id;
   }
