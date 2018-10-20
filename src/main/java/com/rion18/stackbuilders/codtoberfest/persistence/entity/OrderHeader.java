@@ -1,5 +1,6 @@
 package com.rion18.stackbuilders.codtoberfest.persistence.entity;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -27,6 +28,9 @@ public class OrderHeader implements EntityBase {
 
   @Column(name = "phone", nullable = false, length = 32)
   private String phone;
+
+  @Column(name = "total", nullable = false)
+  private BigDecimal total;
 
   @OneToMany(mappedBy = "orderHeader", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   private List<OrderDetail> orderDetails;
@@ -61,6 +65,14 @@ public class OrderHeader implements EntityBase {
 
   public void setPhone(String phone) {
     this.phone = phone;
+  }
+
+  public BigDecimal getTotal() {
+    return total;
+  }
+
+  public void setTotal(BigDecimal total) {
+    this.total = total;
   }
 
   public List<OrderDetail> getOrderDetails() {

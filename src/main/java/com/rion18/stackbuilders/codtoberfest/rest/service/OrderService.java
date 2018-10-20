@@ -56,7 +56,7 @@ public class OrderService {
     orderDetail.setIngredientDetails(ingredients.stream()
         .map(ingredient -> new IngredientDetail(orderDetail, ingredient))
         .collect(Collectors.toList()));
-
+    orderHeader.setTotal(findTotal(orderHeader));
     return orderHeaderDao.save(orderHeader);
   }
 
@@ -68,7 +68,7 @@ public class OrderService {
     return orderHeaderDao.findById(id);
   }
 
-  public BigDecimal findTotal(OrderHeader orderHeader) {
+  private BigDecimal findTotal(OrderHeader orderHeader) {
     BigDecimal total = BigDecimal.ZERO;
     for (OrderDetail orderDetail : orderHeader.getOrderDetails()) {
       total = total.add(orderDetail.getSizePrice());

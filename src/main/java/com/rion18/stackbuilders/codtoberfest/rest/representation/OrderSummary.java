@@ -15,12 +15,12 @@ public class OrderSummary {
   private String phone;
   private BigDecimal total;
 
-  public OrderSummary(OrderHeader orderHeader, BigDecimal total) {
+  public OrderSummary(OrderHeader orderHeader) {
     this.id = orderHeader.getId();
     this.name = orderHeader.getFullName();
     this.address = orderHeader.getAddress();
     this.phone = orderHeader.getPhone();
-    this.total = total;
+    this.total = orderHeader.getTotal();
   }
 
   public long getId() {

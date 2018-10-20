@@ -42,7 +42,7 @@ public class OrderController {
       throw new ResourceNotFoundException("No orders found");
     }
     return orders.stream()
-        .map(orderHeader -> new OrderSummary(orderHeader, orderService.findTotal(orderHeader)))
+        .map(OrderSummary::new)
         .collect(Collectors.toList());
   }
 
@@ -52,7 +52,7 @@ public class OrderController {
     if (orderHeader == null) {
       throw new ResourceNotFoundException("Order with id " + id + " not found");
     }
-    return new OrderHeaderRepresentation(orderHeader, orderService.findTotal(orderHeader));
+    return new OrderHeaderRepresentation(orderHeader);
   }
 
 }

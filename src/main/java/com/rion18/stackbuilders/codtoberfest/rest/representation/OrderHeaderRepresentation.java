@@ -20,10 +20,6 @@ public class OrderHeaderRepresentation {
   }
 
   public OrderHeaderRepresentation(OrderHeader orderHeader) {
-    this(orderHeader, null);
-  }
-
-  public OrderHeaderRepresentation(OrderHeader orderHeader, BigDecimal total) {
     this.id = orderHeader.getId();
     this.name = orderHeader.getFullName();
     this.address = orderHeader.getAddress();
@@ -33,7 +29,7 @@ public class OrderHeaderRepresentation {
     this.ingredients = orderHeader.getOrderDetails().get(0).getIngredientDetails().stream()
         .map(ingredientDetail -> ingredientDetail.getName() + " " + ingredientDetail.getPrice())
         .collect(Collectors.toList());
-    this.total = total;
+    this.total = orderHeader.getTotal();
   }
 
   public long getId() {
